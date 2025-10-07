@@ -1,0 +1,123 @@
+/* --- 全体設定 --- */
+body {
+  margin: 0;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  color: #1b1b1b;
+  position: relative;
+  overflow-x: hidden;
+  background: transparent;
+}
+
+/* --- 背景（和紙の質感がゆるく動く） --- */
+.background {
+  background: url('washi-texture.jpg') center/cover no-repeat fixed;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -1;
+  animation: moveWashi 20s ease-in-out infinite alternate;
+  opacity: 0.9;
+}
+
+@keyframes moveWashi {
+  from { background-position: center top; }
+  to { background-position: center bottom; }
+}
+
+/* --- ヘッダーとナビ --- */
+header {
+  text-align: center;
+  padding: 2rem 0 1rem;
+  font-size: 2rem;
+  letter-spacing: 0.1em;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+nav a {
+  position: relative;
+  text-decoration: none;
+  color: #222;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+/* --- 墨のにじみ風エフェクト --- */
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -3px;
+  width: 0;
+  height: 3px;
+  background: rgba(0,0,0,0.2);
+  transform: translateX(-50%);
+  border-radius: 50%;
+  transition: width 0.4s ease, background 0.4s ease;
+  filter: blur(1.2px);
+}
+
+nav a:hover {
+  color: #000;
+}
+
+nav a:hover::after {
+  width: 120%;
+  background: rgba(0,0,0,0.4);
+}
+
+/* --- セクション --- */
+section {
+  text-align: center;
+  padding: 4rem 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* --- 写真ズームフェード --- */
+.zoom-image {
+  width: 90%;
+  max-width: 600px;
+  margin-top: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transform: scale(1);
+  opacity: 0;
+  transition: transform 4s ease, opacity 1.5s ease;
+}
+
+.zoom-image.show {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+/* --- フェードイン＋スライドイン --- */
+.fade-in, .fade-slide {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.fade-in.show, .fade-slide.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- スマホ調整 --- */
+@media (max-width: 600px) {
+  nav {
+    gap: 0.5rem;
+  }
+  nav a {
+    font-size: 0.9rem;
+  }
+  header {
+    font-size: 1.5rem;
+  }
+}
